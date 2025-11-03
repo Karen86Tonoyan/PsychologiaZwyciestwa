@@ -8,6 +8,8 @@ import Home from "./pages/Home";
 import Marketplace from "./pages/Marketplace";
 import Admin from "./pages/Admin";
 import Register from "./pages/Register";
+import Books from "./pages/Books";
+import Lessons from "./pages/Lessons";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -15,6 +17,8 @@ function Router() {
     <Switch>
       <Route path={"/"} component={Home} />
       <Route path={"/marketplace"} component={Marketplace} />
+      <Route path={"/books"} component={Books} />
+      <Route path={"/lessons"} component={Lessons} />
       <Route path={"/admin"} component={Admin} />
       <Route path={"/register"} component={Register} />
       <Route path={"/404"} component={NotFound} />

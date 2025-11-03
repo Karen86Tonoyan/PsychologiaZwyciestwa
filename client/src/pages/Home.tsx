@@ -23,12 +23,13 @@ export default function Home() {
       <div
         className="min-h-screen flex items-center justify-center bg-cover bg-center relative"
         style={{
-          backgroundImage: `url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"%3E%3Crect fill="%23000000" width="1200" height="800"/%3E%3C/svg%3E)`,
-          backgroundColor: "#000000",
+          backgroundImage: `url('/profile-logo.png')`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
         }}
       >
         {/* Dark overlay */}
-        <div className="absolute inset-0 bg-black/40"></div>
+        <div className="absolute inset-0 bg-black/60"></div>
 
         {/* Login form */}
         <div className="relative z-10 bg-card/95 backdrop-blur border border-border rounded-lg p-8 max-w-md w-full mx-4 shadow-2xl">
@@ -103,6 +104,22 @@ export default function Home() {
               <ShoppingCart className="mr-2 h-4 w-4" />
               Produkty
             </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              className="border-accent text-accent hover:bg-accent hover:text-accent-foreground"
+              onClick={() => setLocation("/books")}
+            >
+              📚 Książki
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              className="border-accent text-accent hover:bg-accent hover:text-accent-foreground"
+              onClick={() => setLocation("/lessons")}
+            >
+              🎓 Lekcje
+            </Button>
             {user?.role === "admin" && (
               <Button
                 variant="outline"
@@ -132,13 +149,12 @@ export default function Home() {
           {/* Left Sidebar */}
           <aside className="lg:col-span-1">
             {/* Profile Photo */}
-            <div className="mb-6 overflow-hidden rounded-lg border-2 border-accent bg-card p-4">
-              <div className="aspect-square bg-gradient-to-br from-accent/20 to-accent/10 rounded-lg flex items-center justify-center">
-                <div className="text-center">
-                  <div className="text-5xl font-bold text-accent">KT</div>
-                  <p className="text-sm text-muted-foreground mt-2">Zdjęcie profilowe</p>
-                </div>
-              </div>
+            <div className="mb-6 overflow-hidden rounded-lg border-2 border-accent bg-card">
+              <img
+                src="/login-bg.png"
+                alt="Karen Tonoyan"
+                className="w-full h-auto object-cover"
+              />
             </div>
 
             {/* Personal Info */}
