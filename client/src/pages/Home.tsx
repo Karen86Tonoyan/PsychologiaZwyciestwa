@@ -1,18 +1,90 @@
+import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "@/components/ui/button";
-import { Download, Mail, MapPin, Phone } from "lucide-react";
+import { Download, Mail, MapPin, Phone, LogOut, ShoppingCart } from "lucide-react";
+import { getLoginUrl } from "@/const";
+import { useLocation } from "wouter";
 
 export default function Home() {
+  const { user, logout, isAuthenticated } = useAuth();
+  const [, setLocation] = useLocation();
+
+  const handleLogout = async () => {
+    await logout();
+    setLocation("/");
+  };
+
   const handlePrint = () => {
     window.print();
   };
 
+  // If not authenticated, show login page with background
+  if (!isAuthenticated) {
+    return (
+      <div
+        className="min-h-screen flex items-center justify-center bg-cover bg-center relative"
+        style={{
+          backgroundImage: `url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"%3E%3Crect fill="%23000000" width="1200" height="800"/%3E%3C/svg%3E)`,
+          backgroundColor: "#000000",
+        }}
+      >
+        {/* Dark overlay */}
+        <div className="absolute inset-0 bg-black/40"></div>
+
+        {/* Login form */}
+        <div className="relative z-10 bg-card/95 backdrop-blur border border-border rounded-lg p-8 max-w-md w-full mx-4 shadow-2xl">
+          <h1 className="text-3xl font-bold text-accent text-center mb-2">
+            Ethical Hacking Platform
+          </h1>
+          <p className="text-center text-muted-foreground mb-6">
+            Zaloguj się, aby uzyskać dostęp do produktów
+          </p>
+
+          <div className="space-y-4">
+            <a href={getLoginUrl()}>
+              <Button className="w-full bg-accent text-accent-foreground hover:bg-accent/90">
+                Zaloguj się przez Google
+              </Button>
+            </a>
+
+            <div className="relative">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-border"></div>
+              </div>
+              <div className="relative flex justify-center text-sm">
+                <span className="px-2 bg-card text-muted-foreground">lub</span>
+              </div>
+            </div>
+
+            <Button
+              variant="outline"
+              className="w-full border-accent text-accent hover:bg-accent hover:text-accent-foreground"
+              onClick={() => setLocation("/register")}
+            >
+              Zarejestruj się
+            </Button>
+          </div>
+
+          <p className="text-xs text-center text-muted-foreground mt-6">
+            Bezpieczne logowanie przez Manus OAuth
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  // If authenticated, show CV or marketplace
   return (
     <div className="min-h-screen bg-background text-foreground">
       {/* Header */}
       <header className="sticky top-0 z-50 border-b border-border bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/60">
         <div className="container flex items-center justify-between py-4">
           <h1 className="text-3xl font-bold text-accent">Karen Tonoyan</h1>
-          <div className="flex gap-3">
+          <div className="flex gap-3 items-center">
+            {user?.role === "admin" && (
+              <span className="text-sm bg-accent/20 text-accent px-3 py-1 rounded-full">
+                Admin
+              </span>
+            )}
             <Button
               variant="outline"
               size="sm"
@@ -26,8 +98,29 @@ export default function Home() {
               variant="outline"
               size="sm"
               className="border-accent text-accent hover:bg-accent hover:text-accent-foreground"
+              onClick={() => setLocation("/marketplace")}
             >
-              List Motywacyjny
+              <ShoppingCart className="mr-2 h-4 w-4" />
+              Produkty
+            </Button>
+            {user?.role === "admin" && (
+              <Button
+                variant="outline"
+                size="sm"
+                className="border-accent text-accent hover:bg-accent hover:text-accent-foreground"
+                onClick={() => setLocation("/admin")}
+              >
+                Panel Admin
+              </Button>
+            )}
+            <Button
+              variant="outline"
+              size="sm"
+              className="border-destructive text-destructive hover:bg-destructive hover:text-destructive-foreground"
+              onClick={handleLogout}
+            >
+              <LogOut className="mr-2 h-4 w-4" />
+              Wyloguj
             </Button>
           </div>
         </div>
