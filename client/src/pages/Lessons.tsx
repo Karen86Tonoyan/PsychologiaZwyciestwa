@@ -218,17 +218,32 @@ export default function Lessons() {
             {/* Payment Info */}
             <div className="rounded-lg border border-accent bg-card p-8">
               <h2 className="text-2xl font-bold text-accent mb-4">
-                Instrukcja płatności
+                Instrukcja platnosci
               </h2>
-              <p className="text-muted-foreground mb-4">
-                Aby uzyskać pełny dostęp do wszystkich lekcji, dokonaj przelewu na poniższe konto:
-              </p>
-              <div className="bg-background border border-border rounded p-4 font-mono text-sm text-accent mb-4">
-                44 1050 1748 1000 0092 1603 7961
+              <div className="space-y-4">
+                <div>
+                  <p className="text-muted-foreground mb-3">
+                    Aby uzyskac dostep do szkolenia, dokonaj przelewu:
+                  </p>
+                  <div className="bg-background border border-border rounded p-4 font-mono text-sm text-accent">
+                    44 1050 1748 1000 0092 1603 7961
+                  </div>
+                  <p className="text-sm text-muted-foreground mt-2">
+                    Kwota: 200 zl
+                  </p>
+                </div>
+                <div className="border-t border-border pt-4">
+                  <p className="text-muted-foreground mb-3">
+                    Po przelewu wyslij SMS:
+                  </p>
+                  <div className="bg-background border border-accent rounded p-4 font-mono text-sm text-accent text-center">
+                    796 230 413
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-2">
+                    SMS: Szkolenie - [Twoj email]
+                  </p>
+                </div>
               </div>
-              <p className="text-sm text-muted-foreground">
-                Kwota: 200 zł | Tytuł przelewu: "Kurs Ethical Hacking"
-              </p>
             </div>
           </div>
         )}

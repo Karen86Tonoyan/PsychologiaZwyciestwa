@@ -104,17 +104,20 @@ export default function Marketplace() {
           })}
         </div>
 
-        {/* Coming Soon Section */}
-        <div className="mt-12 rounded-lg border border-border bg-card p-8 text-center">
+        {/* Contact Section */}
+        <div className="mt-12 rounded-lg border border-accent bg-card p-8">
           <h2 className="text-2xl font-bold text-accent mb-4">
-            Aktualizacja wkrótce
+            Potrzebujesz pomocy
           </h2>
           <p className="text-muted-foreground mb-6">
-            Po zapisaniu praw autorskich będą dostępne nowe produkty i funkcje.
+            Skontaktuj sie z administratorem przez SMS:
           </p>
-          <div className="inline-block bg-accent/10 border border-accent rounded-lg p-4">
-            <p className="text-sm text-accent">
-              Platforma jest w trakcie rozbudowy. Nowe produkty będą dodawane na bieżąco.
+          <div className="bg-background border border-accent rounded-lg p-6 text-center">
+            <p className="text-lg font-mono text-accent mb-2">
+              796 230 413
+            </p>
+            <p className="text-sm text-muted-foreground">
+              Wyslij SMS z pytaniem lub potwierdzeniem przelewu
             </p>
           </div>
         </div>

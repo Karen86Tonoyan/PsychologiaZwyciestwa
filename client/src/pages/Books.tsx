@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { BookOpen, Download, AlertCircle } from "lucide-react";
+import { BookOpen, Download, AlertCircle, ShoppingCart } from "lucide-react";
 import { useLocation } from "wouter";
 import { useState } from "react";
 
@@ -10,41 +10,59 @@ export default function Books() {
   const books = [
     {
       id: 1,
-      title: "Psychologia Zwyciestwa",
+      title: "Ethical Hacking - Tom 1",
       author: "Karen Tonoyan",
-      price: 30,
-      description: "Kompletny przewodnik po psychologii sukcesu i zwyciestwa",
+      price: 100,
+      description: "Podstawy bezpiecznego hakownia i testów penetracyjnych",
       pages: 250,
-      format: "PDF",
+      format: "PDF/Online",
+      volume: 1,
     },
     {
       id: 2,
-      title: "Ethical Hacking - Podstawy",
+      title: "Ethical Hacking - Tom 2",
       author: "Karen Tonoyan",
-      price: 50,
-      description: "Wprowadzenie do bezpiecznego hakownia i testów penetracyjnych",
-      pages: 180,
-      format: "PDF",
+      price: 100,
+      description: "Zaawansowane techniki testowania bezpieczeństwa",
+      pages: 280,
+      format: "PDF/Online",
+      volume: 2,
     },
     {
       id: 3,
-      title: "Cyberbezpieczeństwo dla każdego",
+      title: "Ethical Hacking - Tom 3",
       author: "Karen Tonoyan",
-      price: 40,
-      description: "Praktyczne wskazówki do ochrony danych i systemów",
-      pages: 200,
-      format: "PDF",
+      price: 100,
+      description: "Praktyczne case studies i scenariusze rzeczywiste",
+      pages: 300,
+      format: "PDF/Online",
+      volume: 3,
     },
   ];
 
   const bankAccount = "44 1050 1748 1000 0092 1603 7961";
+
+  const handleBuyBook = (bookId: number) => {
+    const book = books.find(b => b.id === bookId);
+    if (book) {
+      // Store purchase intent in session/localStorage
+      localStorage.setItem('pendingPurchase', JSON.stringify({
+        type: 'book',
+        id: bookId,
+        title: book.title,
+        price: book.price,
+        email: '',
+      }));
+      setSelectedBook(bookId);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-background text-foreground">
       {/* Header */}
       <header className="sticky top-0 z-50 border-b border-border bg-card/95 backdrop-blur">
         <div className="container flex items-center justify-between py-4">
-          <h1 className="text-3xl font-bold text-accent">Książki</h1>
+          <h1 className="text-3xl font-bold text-accent">Książki Ethical Hacking</h1>
           <Button
             variant="outline"
             className="border-accent text-accent hover:bg-accent hover:text-accent-foreground"
@@ -66,7 +84,7 @@ export default function Books() {
               <div className="flex items-center justify-between mb-4">
                 <BookOpen className="h-8 w-8 text-accent" />
                 <span className="text-sm bg-accent/20 text-accent px-3 py-1 rounded-full">
-                  {book.format}
+                  Tom {book.volume}
                 </span>
               </div>
 
@@ -91,9 +109,9 @@ export default function Books() {
                 </div>
                 <Button
                   className="bg-accent text-accent-foreground hover:bg-accent/90"
-                  onClick={() => setSelectedBook(book.id)}
+                  onClick={() => handleBuyBook(book.id)}
                 >
-                  <Download className="mr-2 h-4 w-4" />
+                  <ShoppingCart className="mr-2 h-4 w-4" />
                   Kup
                 </Button>
               </div>
@@ -129,30 +147,50 @@ export default function Books() {
                 {bankAccount}
               </div>
               <p className="text-xs text-muted-foreground mt-2">
-                W tytule przelewu wpisz: "Książka - [nazwa książki]"
+                W tytule przelewu wpisz: "Książka - [nazwa książki]" i swój email
               </p>
             </div>
 
             <div className="bg-background rounded-lg p-4">
-              <h3 className="font-bold text-foreground mb-2">Krok 3: Potwierdzenie</h3>
-              <p className="text-sm text-muted-foreground">
-                Po potwierdzeniu przelewu (1-2 dni robocze) otrzymasz link do pobrania książki na email
+              <h3 className="font-bold text-foreground mb-2">Krok 3: Wyslij SMS do admina</h3>
+              <p className="text-sm text-muted-foreground mb-3">
+                Po dokonaniu przelewu wyslij SMS na numer:
+              </p>
+              <div className="bg-card border border-accent rounded p-3 font-mono text-sm text-accent text-center">
+                796 230 413
+              </div>
+              <p className="text-xs text-muted-foreground mt-2">
+                W SMS wpisz: Przelew [nazwa ksiazki/szkolenia] - [Twoj email]
               </p>
             </div>
 
             <div className="bg-background rounded-lg p-4">
-              <h3 className="font-bold text-foreground mb-2">Krok 4: Pobierz</h3>
+              <h3 className="font-bold text-foreground mb-2">Krok 4: Otrzymaj dostep</h3>
               <p className="text-sm text-muted-foreground">
-                Pobierz książkę w formacie PDF i czytaj na dowolnym urządzeniu
+                Admin wysle Ci link do pobrania PDF lub dostep online na podany email
               </p>
             </div>
           </div>
 
           <div className="mt-6 p-4 bg-accent/10 border border-accent rounded-lg">
             <p className="text-sm text-accent">
-              ℹ️ Wszystkie książki są dostępne w formacie PDF. Możesz je czytać na komputerze, tablecie lub telefonie.
+              ℹ️ Wszystkie książki są dostępne w formacie PDF i online. Możesz czytać na komputerze, tablecie lub telefonie.
             </p>
           </div>
+        </div>
+
+        {/* Promotion */}
+        <div className="mt-8 rounded-lg border border-accent bg-accent/5 p-8 text-center">
+          <h2 className="text-2xl font-bold text-accent mb-4">🎁 Specjalna oferta!</h2>
+          <p className="text-muted-foreground mb-4">
+            Kup wszystkie 3 tomy + pełne szkolenie za 200 zł zamiast 500 zł!
+          </p>
+          <Button
+            className="bg-accent text-accent-foreground hover:bg-accent/90"
+            onClick={() => setLocation("/lessons")}
+          >
+            Przejdź do szkolenia
+          </Button>
         </div>
       </main>
 
